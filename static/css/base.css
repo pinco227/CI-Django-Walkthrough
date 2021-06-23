@@ -114,7 +114,7 @@ input[name='q']::placeholder {
 }
 
 .toast-capper {
-    height: 2px;
+    height: 4px;
 }
 
 /* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
