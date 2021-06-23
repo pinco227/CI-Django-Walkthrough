@@ -1,41 +1,44 @@
 <script type="text/javascript">
-    const handleEnableDisable= (itemId) => {
-        const qtyField = document.getElementById(`id_qty_${itemId}`);
-        const currentValue = parseInt(qtyField.value);
+    const handleEnableDisable= (inputEl) => {
+        const currentValue = parseInt(inputEl.value);
         const minusDisabled = currentValue < 2;
         const plusDisabled = currentValue > 98;
-        document.querySelector('.increment-qty').disabled = plusDisabled;
-        document.querySelector('.decrement-qty').disabled = minusDisabled;
+        inputEl.parentNode.querySelector('.increment-qty').disabled = plusDisabled;
+        inputEl.parentNode.querySelector('.decrement-qty').disabled = minusDisabled;
     }
 
     const allQtyInputs = document.querySelectorAll('.qty_input');
     allQtyInputs.forEach((el) => {
         const itemId = el.dataset.item_id;
-        handleEnableDisable(itemId);
+        handleEnableDisable(el);
 
         el.addEventListener('change', () => {
-            handleEnableDisable(itemId);
+            handleEnableDisable(el);
         });
     })
 
-    document.querySelector('.increment-qty').addEventListener('click', (e) => {
-        e.preventDefault();
-        const closestInput = e.currentTarget.parentNode.querySelector('.form-control');
-        const currentValue = parseInt(closestInput.value);
-        const itemId = e.currentTarget.dataset.item_id;
+    document.querySelectorAll('.increment-qty').forEach((el) => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const closestInput = e.currentTarget.parentNode.querySelector('.form-control');
+            const currentValue = parseInt(closestInput.value);
+            const itemId = e.currentTarget.dataset.item_id;
 
-        closestInput.value = currentValue + 1;
+            closestInput.value = currentValue + 1;
 
-        handleEnableDisable(itemId);
+            handleEnableDisable(closestInput);
+        });
     });
-    document.querySelector('.decrement-qty').addEventListener('click', (e) => {
-        e.preventDefault();
-        const closestInput = e.currentTarget.parentNode.querySelector('.form-control');
-        const currentValue = parseInt(closestInput.value);
-        const itemId = e.currentTarget.dataset.item_id;
+    document.querySelectorAll('.decrement-qty').forEach((el) => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const closestInput = e.currentTarget.parentNode.querySelector('.form-control');
+            const currentValue = parseInt(closestInput.value);
+            const itemId = e.currentTarget.dataset.item_id;
 
-        closestInput.value = currentValue - 1;
+            closestInput.value = currentValue - 1;
 
-        handleEnableDisable(itemId);
+            handleEnableDisable(closestInput);
+        });
     });
 </script>

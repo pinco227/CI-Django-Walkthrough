@@ -1,12 +1,6 @@
-const postApi = async (endpoint, data, done, fail) => {
+const callApi = async (endpoint, payload, done, fail) => {
     try {
-        const response = await fetch(endpoint, {
-            method: 'POST',
-            body: data,
-            headers: {
-                "Content-type": "application/json"
-            }
-        });
+        const response = await fetch(endpoint, payload);
         if (response.ok) {
             done(response);
         }
