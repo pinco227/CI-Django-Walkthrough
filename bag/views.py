@@ -2,6 +2,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.contrib import messages
 from products.models import Product
+import json
 
 
 def view_bag(request):
@@ -88,25 +89,27 @@ def remove_from_bag(request, item_id):
     """ Remove item from shopping bag """
 
     try:
-        product = get_object_or_404(Product, pk=item_id)
-        size = None
-        if 'product_size' in request.POST:
-            size = request.POST.get('product_size')
-        bag = request.session.get('bag', {})
+        if request.is_ajax():
+            product = get_object_or_404(Product, pk=item_id)
+            size = json.load(request)['product_size']
+            bag = request.session.get('bag', {})
 
-        if size:
-            del bag[item_id]['items_by_size'][size]
-            if not bag[item_id]['items_by_size']:
+            if size:
+                del bag[item_id]['items_by_size'][size]
+                if not bag[item_id]['items_by_size']:
+                    bag.pop(item_id)
+                messages.success(
+                    request, f'Removed size <strong>{size.upper()}</strong> <strong>{product.name}</strong> from your bag!')
+            else:
                 bag.pop(item_id)
-            messages.success(
-                request, f'Removed size <strong>{size.upper()}</strong> <strong>{product.name}</strong> from your bag!')
-        else:
-            bag.pop(item_id)
-            messages.success(
-                request, f'Removed <strong>{product.name}</strong> from your bag!')
+                messages.success(
+                    request, f'Removed <strong>{product.name}</strong> from your bag!')
 
-        request.session['bag'] = bag
-        return HttpResponse(status=200)
+            request.session['bag'] = bag
+            return HttpResponse(status=200)
+        else:
+            raise Exception('Invalid request.')
+
     except Exception as e:
         messages.error(request, f'<strong>Error removing item:</strong> {e}')
         return HttpResponse(status=500)
