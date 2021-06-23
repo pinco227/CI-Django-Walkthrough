@@ -43,7 +43,7 @@ def all_products(request):
             if not query:
                 messages.error(
                     request, "You didn't enter any search criteria!")
-                return redirect(reverse(products))
+                return redirect(reverse('products'))
 
             # Query: insensitive contains
             queries = Q(name__icontains=query) | Q(
