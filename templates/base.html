@@ -113,6 +113,8 @@
 
     {% block content %}{% endblock content %}
 
-    {% block postloadjs %}{% endblock postloadjs %}
+    {% block postloadjs %}
+      <script src="{% static 'js/script.js' %}"></script>
+    {% endblock postloadjs %}
   </body>
 </html>
