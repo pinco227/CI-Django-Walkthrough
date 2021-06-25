@@ -37,7 +37,7 @@ class Order(models.Model):
         accounting for delivery costs. """
 
         self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))[
-            'lineitem_total__sum']
+            'lineitem_total__sum'] or 0
         if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
             self.delivery_cost = self.order_total * \
                 settings.STANDARD_DELIVERY_PERCENTAGE/100
@@ -53,7 +53,7 @@ class Order(models.Model):
 
         if not self.order_number:
             self.order_number = self._generate_order_number()
-        super().save(*args, **kwargs)
+        super().save()
 
     def __str__(self):
         return self.order_number
@@ -76,7 +76,7 @@ class OrderLineItem(models.Model):
         and update the order total. """
 
         self.lineitem_total = self.product.price * self.quantity
-        super().save(*args, **kwargs)
+        super().save()
 
     def __str__(self):
         return f'SKU {self.product.sku} on order {self.order.order_number}'
