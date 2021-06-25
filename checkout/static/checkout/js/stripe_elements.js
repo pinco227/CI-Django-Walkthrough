@@ -46,11 +46,14 @@ card.on('change', (e) => {
 
 // Handle form submit
 const form = document.getElementById('payment-form');
+const overlay = document.getElementById('loading-overlay');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     card.update({ 'disabled': true });
     submitButton.setAttribute('disabled', true);
+    fadeToggle(form);
+    fadeToggle(overlay);
     // If the client secret was rendered server-side as a data-secret attribute
     // on the <form> element, you can retrieve it here by calling `form.dataset.secret`
     stripe.confirmCardPayment(clientSecret, {
@@ -67,6 +70,8 @@ form.addEventListener('submit', (e) => {
                 <span>${result.error.message}</span>
             `;
             errorDiv.innerHTML = html;
+            fadeToggle(form);
+            fadeToggle(overlay);
             card.update({ 'disabled': false });
             submitButton.removeAttribute('disabled');
         } else {
