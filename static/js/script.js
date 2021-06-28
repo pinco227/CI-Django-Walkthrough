@@ -7,7 +7,6 @@ const callApi = async (endpoint, payload, done, fail) => {
     }
     catch (error) {
         fail(error);
-        console.log("smth");
     }
 }
 
