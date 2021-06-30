@@ -144,7 +144,7 @@
                 const csrfToken = "{{ csrf_token }}"
                 const itemId = e.currentTarget.dataset.item_id;
                 const size = e.currentTarget.dataset.size;
-                const url = `/bag/remove/${itemId}`;
+                const url = `/bag/remove/${itemId}/`;
                 const data = JSON.stringify({'product_size': size});
                 const payload = {
                     method: 'POST',
