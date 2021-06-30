@@ -188,3 +188,4 @@ STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
 STRIPE_WH_SECRET = env('STRIPE_WH_SECRET', default='')
+DEFAULT_FROM_EMAIL = 'djangommerce@djangommerce.com'
