@@ -106,7 +106,7 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 # Log to console instead of sending email (for local testing)
-EMAIL_BACKEND = 'django.core.mail.backend.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
