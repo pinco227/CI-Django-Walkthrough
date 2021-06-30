@@ -20,10 +20,16 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <hr>
-                <h2 class="logo-font mb-4">Thank you!</h2>
-                <hr>
-                <p class="text-black">Your order information is below. A confirmation email will be sent to <strong>{{ order.email }}</strong>.</p>
+                {% if from_profile %}
+                    <hr>
+                    <h2 class="logo-font mb-4">Order {{ order.order_number|truncatechars:6 }}</h2>
+                    <hr>
+                {% else %}
+                    <hr>
+                    <h2 class="logo-font mb-4">Thank you!</h2>
+                    <hr>
+                    <p class="text-black">Your order information is below. A confirmation email will be sent to <strong>{{ order.email }}</strong>.</p>
+                {% endif %}
             </div>
         </div>
         <div class="row">
@@ -174,12 +180,21 @@
         </div>
         <div class="row">
             <div class="col-12 col-lg-7 text-end">
-                <a href="{% url 'products' %}/category=new_arrivals,deals,clearance" class="btn btn-black rounded-0 my-2">
-                    <span class="icon me-2">
-                        <i class="fas fa-gifts"></i>
-                    </span>
-                    <span class="text-uppercase">Now check out the latest deals!</span>
-                </a>
+                {% if from_profile %}
+                    <a href="{% url 'profile' %}" class="btn btn-black rounded-0 my-2">
+                        <span class="icon me-2">
+                            <i class="fas fa-angle-left"></i>
+                        </span>
+                        <span class="text-uppercase">Back to profile</span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'products' %}?category=new_arrivals,deals,clearance" class="btn btn-black rounded-0 my-2">
+                        <span class="icon me-2">
+                            <i class="fas fa-gifts"></i>
+                        </span>
+                        <span class="text-uppercase">Now check out the latest deals!</span>
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>
