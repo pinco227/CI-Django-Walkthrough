@@ -245,6 +245,10 @@ select {
 
 /* Product Form */
 
+#product-form .form-control {
+    margin-bottom: .5rem;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
