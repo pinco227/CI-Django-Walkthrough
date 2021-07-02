@@ -231,8 +231,8 @@ if DEVELOPMENT:
     DEFAULT_FROM_EMAIL = 'djangommerce@djangommerce.com'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_USE_TLS = env('EMAIL_USE_TLS')
-    EMAIL_PORT = env('EMAIL_PORT')
-    EMAIL_HOST = env('EMAIL_HOST')
-    EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-    EMAIL_HOST_PASS = env('EMAIL_HOST_PASS')
+    EMAIL_HOST = env('EMAIL_HOST', default='smtp.sendgrid.net')
+    EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='apikey')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
+    EMAIL_PORT = env('EMAIL_PORT', default='587')
+    EMAIL_USE_TLS = env('EMAIL_USE_TLS', default=True)
