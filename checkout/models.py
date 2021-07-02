@@ -13,7 +13,7 @@ from profiles.models import UserProfile
 
 class Order(models.Model):
 
-    order_number = models.CharField(max_length=32, null=False, editable=False)
+    order_number = models.CharField(max_length=64, null=False, editable=False)
     user_profile = models.ForeignKey(
         UserProfile, on_delete=models.SET_NULL, null=True, blank=True,
         related_name='orders')
@@ -36,7 +36,7 @@ class Order(models.Model):
                                       null=False, default=0)
     original_bag = models.TextField(null=False, blank=False, default='')
     stripe_pid = models.CharField(
-        max_length=2, null=False, blank=False, default='')
+        max_length=254, null=False, blank=False, default='')
 
     def _generate_order_number(self):
         """ Generates a random, unique order number using UUID """
