@@ -33,6 +33,7 @@ SECRET_KEY = env('SECRET_KEY', default='')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
+DEBUG = env('DEVELOPMENT', default=False)
 
 ALLOWED_HOSTS = [env('HOSTNAME', default='127.0.0.1')]
 
@@ -224,7 +225,7 @@ STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
 STRIPE_WH_SECRET = env('STRIPE_WH_SECRET', default='')
 
-if DEBUG:
+if DEVELOPMENT:
     # Log to console instead of sending email (for local testing)
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'djangommerce@djangommerce.com'
