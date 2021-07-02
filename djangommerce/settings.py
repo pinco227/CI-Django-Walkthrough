@@ -11,14 +11,19 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import environ
 import os
-
-env = environ.Env()
-environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+if os.path.exists(os.path.join(BASE_DIR, 'djangommerce/.env')):
+    import environ
+    env = environ.Env(
+        DEBUG=(bool, False)
+    )
+    environ.Env.read_env()
+else:
+    env = os.environ.get
 
 
 # Quick-start development settings - unsuitable for production
@@ -28,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY', default='')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG', default=False)
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = [env('HOSTNAME', default='127.0.0.1')]
 
