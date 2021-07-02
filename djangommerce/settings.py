@@ -110,9 +110,6 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-# Log to console instead of sending email (for local testing)
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -226,4 +223,15 @@ STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
 STRIPE_WH_SECRET = env('STRIPE_WH_SECRET', default='')
-DEFAULT_FROM_EMAIL = 'djangommerce@djangommerce.com'
+
+if DEBUG:
+    # Log to console instead of sending email (for local testing)
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'djangommerce@djangommerce.com'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+    EMAIL_PORT = env('EMAIL_PORT')
+    EMAIL_HOST = env('EMAIL_HOST')
+    EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+    EMAIL_HOST_PASS = env('EMAIL_HOST_PASS')
