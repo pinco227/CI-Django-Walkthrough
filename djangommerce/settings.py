@@ -12,15 +12,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 if os.path.exists(os.path.join(BASE_DIR, 'djangommerce/.env')):
     import environ
-    env = environ.Env(
-        DEBUG=(bool, False)
-    )
+    env = environ.Env()
     environ.Env.read_env()
 else:
     env = os.environ.get
@@ -131,7 +130,7 @@ WSGI_APPLICATION = 'djangommerce.wsgi.application'
 DATABASE_URL = env('DATABASE_URL', default=False)
 if DATABASE_URL:
     DATABASES = {
-        'default': env.db(),
+        'default': dj_database_url.parse(DATABASE_URL),
     }
 else:
     DATABASES = {
