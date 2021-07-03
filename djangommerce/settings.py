@@ -236,4 +236,4 @@ else:
     EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
     EMAIL_PORT = int(env('EMAIL_PORT', default=587))
     EMAIL_USE_TLS = bool(env('EMAIL_USE_TLS', default=True))
-    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    DEFAULT_FROM_EMAIL = env('EMAIL_FROM')
