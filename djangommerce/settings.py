@@ -234,5 +234,5 @@ else:
     EMAIL_HOST = env('EMAIL_HOST', default='smtp.sendgrid.net')
     EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='apikey')
     EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
-    EMAIL_PORT = env('EMAIL_PORT', default='587')
-    EMAIL_USE_TLS = env('EMAIL_USE_TLS', default=True)
+    EMAIL_PORT = int(env('EMAIL_PORT', default=587))
+    EMAIL_USE_TLS = bool(env('EMAIL_USE_TLS', default=True))
